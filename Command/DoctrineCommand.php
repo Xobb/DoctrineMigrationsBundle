@@ -54,8 +54,7 @@ abstract class DoctrineCommand extends BaseCommand
         }
 
         $configuration->setMigrationsNamespace($containerParameters['namespace']);
-            $configuration->setMigrationsDirectory($dir);
-        } else {
+        $configuration->setMigrationsDirectory($dir);
         $configuration->setName($containerParameters['name']);
         $configuration->setMigrationsTableName($containerParameters['table_name']);
             $pathPlaceholderArray = array('kernel.root_dir', 'kernel.cache_dir', 'kernel.logs_dir');
@@ -64,11 +63,8 @@ abstract class DoctrineCommand extends BaseCommand
                     $dir = str_replace('%'.$pathPlaceholder.'%', $container->getParameter($pathPlaceholder), $dir);
                 }
             }
-            if (!file_exists($dir)) {
-                mkdir($dir, 0777, true);
-            }
-            $configuration->setMigrationsDirectory($dir);
-        }
+
+        $configuration->setMigrationsDirectory($dir);
         if (!$configuration->getMigrationsNamespace()) {
             $configuration->setMigrationsNamespace($container->getParameter('doctrine_migrations.namespace'));
         }
